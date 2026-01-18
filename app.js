@@ -31,19 +31,38 @@ class ToeicApp {
         this.screens[screenId].classList.remove('hidden');
     }
 
-    startQuiz(category) {
-        const pool = toeicQuestions[category] || [];
-        if (pool.length === 0) {
-            alert('该分类暂无题目');
-            return;
-        }
+    async startQuiz(category) {
+        try {
+            this.showLoading();
+            const response = await fetch(`http://localhost:3000/api/questions/${category}`);
+            if (!response.ok) throw new Error('Failed to fetch questions');
 
-        // Shuffle and pick up to 10
-        this.currentQuestions = [...pool].sort(() => Math.random() - 0.5).slice(0, 10);
-        this.currentIndex = 0;
-        this.score = 0;
-        this.showScreen('quiz');
-        this.loadQuestion();
+            const pool = await response.json();
+            if (pool.length === 0) {
+                alert('该分类暂无题目');
+                return;
+            }
+
+            // Shuffle and pick up to 10
+            this.currentQuestions = [...pool].sort(() => Math.random() - 0.5).slice(0, 10);
+            this.currentIndex = 0;
+            this.score = 0;
+            this.showScreen('quiz');
+            this.loadQuestion();
+        } catch (error) {
+            console.error(error);
+            alert('获取题目失败，请确保后端服务已启动');
+        } finally {
+            this.hideLoading();
+        }
+    }
+
+    showLoading() {
+        // Simple loading state if needed, or just rely on async flow
+    }
+
+    hideLoading() {
+        // Hide loading state
     }
 
     loadQuestion() {
