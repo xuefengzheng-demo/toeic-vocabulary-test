@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TOEIC 托业词汇挑战 - 职场英语通</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div id="app" class="glass-container">
+        <!-- Start Screen -->
+        <div id="start-screen" class="screen">
+            <h1 class="premium-title">TOEIC Vocabulary</h1>
+            <p class="subtitle">提升职场竞争力，从核心词汇开始</p>
+            <div class="category-grid">
+                <button class="menu-btn" onclick="app.startQuiz('office')">
+                    <span class="btn-icon">💼</span>
+                    <span class="btn-text">商务办公</span>
+                </button>
+                <button class="menu-btn" onclick="app.startQuiz('finance')">
+                    <span class="btn-icon">📊</span>
+                    <span class="btn-text">金融财务</span>
+                </button>
+                <button class="menu-btn" onclick="app.startQuiz('travel')">
+                    <span class="btn-icon">✈️</span>
+                    <span class="btn-text">差旅接待</span>
+                </button>
+                <button class="menu-btn" onclick="app.startQuiz('tech')">
+                    <span class="btn-icon">💻</span>
+                    <span class="btn-text">技术协作</span>
+                </button>
+            </div>
+            <p class="hint">每轮随机抽取 10 道托业真题词汇</p>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen hidden">
+            <div class="quiz-header">
+                <div class="header-main">
+                    <span id="progress">第 1/10 题</span>
+                    <span id="timer-text">15s</span>
+                </div>
+                <div class="timer-bar">
+                    <div id="timer-fill"></div>
+                </div>
+            </div>
+            <div id="question-area">
+                <h2 id="question-text">Loading...</h2>
+                <div id="options" class="options-grid"></div>
+            </div>
+            <!-- Integrated Explanation -->
+            <div id="explanation-container" class="explanation-box hidden">
+                <div class="explanation-content">
+                    <h3>解析</h3>
+                    <p id="explanation-text"></p>
+                    <button class="primary-btn next-btn" onclick="app.nextQuestion()">下一题 →</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Result Screen -->
+        <div id="result-screen" class="screen hidden">
+            <div class="result-badge">
+                <span id="final-score">0</span>
+                <span class="pts">PTS</span>
+            </div>
+            <h2 id="result-message">测试完成</h2>
+            <p id="result-desc"></p>
+            <button class="primary-btn" onclick="location.reload()">再测一次</button>
+        </div>
+
+    </div>
+
+    <script src="questions.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
